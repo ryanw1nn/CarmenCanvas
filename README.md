@@ -2,6 +2,14 @@
 
 Created by Ryan Winn
 
+# Summary
+
+Ruby on Rails website to upload and share presentations to a class. 
+- Includes different roles including students who upload the presentation files and comment on them, as well as teachers/graders who can view and assign scores to them.
+- Saves presentation files and enters them into an SQL database.
+- Authentication and authorization support.
+- 
+
 ## Instructions + Set Up
 
 1. **Clone the Repository**: Clone the repository containing the game code to your local machine.
