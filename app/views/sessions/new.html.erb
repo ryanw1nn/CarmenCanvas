@@ -1,0 +1,25 @@
+<div class="section-container">
+<h1>Login</h1>
+</div>
+<div class="section-container">
+  <%#LOG IN PAGE-- different from sign-up page%>
+  <%= form_with(url: login_path, method: :post) do |form| %>
+    <% if flash[:error] %>
+      <p style="color: red;"><%= flash[:error] %></p>
+    <% end %>
+
+    <div>
+      <%= form.label :name %>
+      <%= form.text_field :name %>
+    </div>
+
+    <div>
+      <%= form.label :password %>
+      <%= form.password_field :password %> <br>
+    </div>
+
+    <div>
+      <%= form.submit "Login", class: "bux-button" %>
+    </div>
+  <% end %>
+</div>

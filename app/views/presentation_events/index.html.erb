@@ -1,0 +1,23 @@
+<% if @presentation_events.any? %>
+  <div class="bux-tiles-container">
+    <% @presentation_events.each do |presentation_event| %>
+      <div class="bux-tile">
+        <a class="bux-tile__link" href="<%= presentation_event_path(presentation_event) %>"></a>
+        <div class="bux-tile__content">
+          <h3 class="bux-tile__header">
+            <span class="bux-tile__text"><%= presentation_event.title %></span>
+          </h3>
+          <div class="bux-tile__body"><%= presentation_event.description %></div>
+        </div>
+      </div>
+    <% end %>
+  </div>
+<% else %>
+  <div class="no-presentations-message">
+    <p>No presentations created yet</p>
+  </div>
+<% end %>
+
+<div class="controls">
+  <%= link_to "New Presentation", new_presentation_event_path, class: "bux-button button--bottom-right" %>
+</div>

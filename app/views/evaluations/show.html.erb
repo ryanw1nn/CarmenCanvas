@@ -1,0 +1,8 @@
+<%= render @evaluation %>
+
+<div>
+  <%= link_to "Edit this evaluation", edit_evaluation_path(@evaluation) %> |
+  <%= link_to "Back to evaluations", evaluations_path %>
+
+  <%= button_to "Destroy this evaluation", @evaluation, method: :delete %>
+</div>

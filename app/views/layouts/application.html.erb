@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Presentation Evaluator</title>
+  <%= csrf_meta_tags %>
+  <%= csp_meta_tag %>
+  <%= stylesheet_link_tag 'bux-styles.min' %>
+  <%= stylesheet_link_tag 'custom_styling_group_2' %>
+</head>
+<body>
+
+<nav id="osu-navbar" class="bux-osu-nav" aria-label="Ohio State links">
+    <div class="bux-osu-nav__overlay"></div>
+    <div class="bux-osu-nav__wrapper">
+        <h2 class="visually-hidden">Ohio State navigation bar</h2>
+        <div class="bux-container">
+            <div id="osu-navname-block">
+                <a class="bux-osu-nav__osu-logo-link" href="https://osu.edu">
+                    <img class="bux-osu-nav__osu-logo-img" src="https://www.osu.edu/images/osu-logo-horizontal.svg"
+                        alt="The Ohio State University" />
+                </a>
+            </div>
+            <div id="osu-navlinks-block">
+                <button type="button" id="osu-nav-trigger" aria-controls="osu-navlinks" aria-expanded="false">
+                    <span class="visually-hidden">Show Links</span>
+                </button>
+                <ul id="osu-navlinks" aria-labelledby="osu-nav-trigger" class="bux-osu-nav__links">
+                    <li class="bux-osu-nav__link"><%= link_to 'View All Presentations', root_path %></li>
+                    <% if current_user %>
+                        <% if current_user.admin? %>
+                            <li class="bux-osu-nav__link"><%= link_to 'Admin View', grading_view_path %></li>
+                        <% end %>
+                        <li class="bux-osu-nav__link"><%= link_to "Logged in as #{current_user.name} — Logout", logout_path, method: :delete %></li>
+                    <% else %>
+                        <li class="bux-osu-nav__link"><%= link_to 'Login', login_path %></li>
+                        <li class="bux-osu-nav__link"><%= link_to "Sign Up", signup_path %></li>
+                    <% end %>
+                </ul>
+            </div>
+        </div>
+    </div>
+</nav>
+
+  <% if notice.present? %>
+  <div class="section-container">
+    <div class="bux-alert bux-alert--success" role="status">
+      <div class="bux-alert__icon" aria-hidden="true"></div>
+      <div class="visually-hidden">Success.</div>
+      <div class="bux-alert__message">
+        <div class="bux-alert__message-title"><%= notice %></div>
+      </div>
+      <button class="bux-alert__dismiss" onclick="dismissAlert()">
+      <span class="visually-hidden">Dismiss this alert</span>
+    </button>
+    </div>
+    </div>
+  <% end %>
+<!-- Main content -->
+<%= yield %>
+
+</body>
+</html>
+
+<script>
+  function dismissAlert() {
+    var alertBox = document.querySelector('.bux-alert');
+    alertBox.style.display = 'none';
+  }
+</script>

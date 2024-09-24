@@ -1,0 +1,34 @@
+<%= form_with(model: @presentation_event, url: presentation_events_path, html: { class: "presentation-event-form" }) do |form| %>
+  <caption><h2>New Presentation</h2></caption>
+  <% if @presentation_event.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@presentation_event.errors.count, "error") %> prohibited this presentation event from being saved:</h2>
+
+      <ul>
+      <% @presentation_event.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="form-group">
+    <%= form.label :title %>
+    <%= form.text_field :title, class: "form-control" %>
+  </div>
+
+  <div class="form-group">
+    <%= form.label :date %>
+    <%= form.date_field :date, class: "form-control" %>
+  </div>
+
+  <div class="form-group">
+    <%= form.label :description %>
+    <%= form.text_area :description, rows: 10, class: "form-control" %>
+  </div>
+
+  <div class="form-actions">
+    <%= form.submit "Create Presentation", class: "bux-button" %>
+    <%= link_to "Cancel", root_path, class: "bux-button bux-button--alt" %>
+  </div>
+<% end %>

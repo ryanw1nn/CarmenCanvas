@@ -1,0 +1,97 @@
+<div class="section-container">
+<h1>Admin View</h1>
+</div>
+
+<div class="section-container">
+  <h2>Presentation Events</h2>
+
+  <table class='bux-table'>
+    <thead>
+      <tr>
+        <th>Title</th>
+        <th>Date</th>
+        <th>Number of Ratings</th>
+        <th>Average Rating</th>
+        <th>Members</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @presentation_events.each do |presentation_event| %>
+        <tr>
+          <td><%= presentation_event.title %></td>
+          <td><%= presentation_event.date %></td>
+          <td><%= presentation_event.evaluations.count %></td>
+          <td><%= presentation_event.evaluations.average(:score) %></td>
+          <td> 
+            <% presentation_event.users.each do |user| %>
+              <%= user.name %>,
+            <% end %>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>
+
+
+<div class="section-container">
+  <h2>Manage Users</h2>
+
+  <table class='bux-table'>
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Admin</th>
+        <th>Presentations</th>
+        <th>Delete</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @users.each do |user| %>
+        <tr>
+          <td><%= user.name %></td>
+          <%# <td>
+            <%= form_with(model: user, url: user_path(user), method: :patch, local: true, id: 'user-form') do |form| 
+              <%= form.label :admin, class: 'admin-checkbox-label' do %
+                <%= form.check_box :admin, class: 'admin-checkbox', onchange: 'this.form.submit()' %
+                Admin
+              <% end %
+            <% end %
+          </td> %>
+          <td><%= user.admin? %></td> <!-- Display admin status -->
+
+            <% user.presentation_events.each do |presentation_event| %>
+            <% average_score = presentation_event.evaluations.average(:score) %>
+            <% if average_score %>
+                <%= "#{presentation_event.title}: #{average_score}" %><br>
+            <% else %>
+                <%= "#{presentation_event.title}: No ratings yet" %><br>
+            <% end %>
+            <% end %>
+          </td>
+          <td>
+            <% unless user.name == 'admin' %>
+              <%= form_with(model: user, method: :delete, url: user_path(user), data: { confirm: 'Are you sure?' }) do |form| %>
+                <%= form.submit 'Delete', class: 'bux-button' %>
+              <% end %>
+            <% end %>
+          </td>
+
+
+        </tr>
+      <% end %>
+      <tr>
+        <td>
+          <%= form_tag users_path, method: :post, id: 'add-user-form' do %>
+            <%= text_field_tag 'user[name]', nil, placeholder: 'Username', class: 'bux-text-field__label', id: 'new-user-name' %>
+            <%= hidden_field_tag 'user[password]', 'cse3901!' %>
+            <%= hidden_field_tag 'user[password_confirmation]', 'cse3901!' %>
+            <%= hidden_field_tag 'user[admin]', 'false' %>
+            <%= submit_tag 'Add User', class: 'bux-button' %>
+          <% end %>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  <%= javascript_include_tag 'users' %> <!-- Include JavaScript file -->
+</div>

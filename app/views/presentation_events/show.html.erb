@@ -1,0 +1,94 @@
+<div class="bux-panel">
+  <div class="presentation-event-details">
+    <h2 class="bux-panel__heading"><%= @presentation_event.title %></h2>
+    <p><strong>Date:</strong> <%= @presentation_event.date %></p>
+    <p><strong>Description:</strong> <%= @presentation_event.description %></p>
+    <p><strong>Members:</strong>
+    <% @presentation_event.users.each do |user| %>
+      <%= user.name %>, <!-- Assuming you have a 'name' attribute in your User model -->
+    <% end %>
+    </p>
+  </div>
+  <div class="buttons bux-panel__footer">
+    <% if current_user.presentation_events.include?(@presentation_event) %>
+      <%= link_to "Leave Presentation", leave_presentation_event_path(@presentation_event), class: "bux-button bux-button--alt" %>
+    <% else %>
+      <%= link_to "Join Presentation", join_presentation_event_path(@presentation_event), class: "bux-button bux-button--alt" %>
+    <% end %>
+    <%= link_to "Edit", edit_presentation_event_path(@presentation_event), class: "bux-button bux-button--alt" %>
+    <%= button_to "Delete", @presentation_event, method: :delete, class: "bux-button" %>
+  </div>
+</div>
+
+
+<div class="comments-section">
+  
+  <div class="submit-comment">
+    <% if @presentation_event.users.exclude?(current_user) %>
+      <%= form_with(model: [@presentation_event, Evaluation.new], url: presentation_event_evaluations_path(@presentation_event)) do |form| %>
+        <!-- Form fields -->
+        <div class="rating-stars">
+          <% (1..10).each do |score| %>
+            <span class="star" data-value="<%= score %>">&#9733;</span>
+          <% end %>
+          <%= form.hidden_field :score, id: "evaluation_score", class: "form-input" %>
+        </div>
+
+        <div class="field">
+          <%= form.label :comment, class: "form-label" %>
+          <%= form.text_area :comment, class: "form-textarea form-control" %>
+        </div>
+
+        <!-- Submit button -->
+        <div class="actions">
+          <%= form.submit "Submit Comment", class: "bux-button bux-button--primary bux-button--disabled", disabled: true, id: "submit-comment-button" %>
+        </div>
+      <% end %>
+    <% end %>
+  </div>
+
+  <div class="comments-list">
+      <% @presentation_event.evaluations.each do |evaluation| %>
+        <div class="comment" style="position: relative;">
+      <p><strong>User:</strong> <%= evaluation.user.name %></p>
+      <p><strong>Score:</strong> <%= evaluation.score %></p>
+      <p><strong>Comment:</strong> <%= evaluation.comment %></p>
+      <hr class="comment-divider">
+      <% if current_user.admin? %>
+        <%= button_to "Delete Comment", presentation_event_evaluation_path(@presentation_event, evaluation), method: :delete, class: "delete-comment bux-button" %>
+      <% end %>
+    </div>
+
+  <% end %>
+</div>
+</div>
+
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+  const stars = document.querySelectorAll(".star");
+  const submitButton = document.getElementById("submit-comment-button");
+
+  stars.forEach(function(star) {
+    star.addEventListener("click", function() {
+      const clickedStarIndex = Array.from(stars).indexOf(star);
+
+      // Remove highlight from all stars
+      stars.forEach(function(s, index) {
+        if (index <= clickedStarIndex) {
+          s.classList.add("highlight");
+        } else {
+          s.classList.remove("highlight");
+        }
+      });
+
+      // Set the value of the hidden input field
+      const scoreInput = document.getElementById("evaluation_score");
+      scoreInput.value = clickedStarIndex + 1;
+
+      // Enable submit button
+      submitButton.disabled = false;
+      submitButton.classList.remove("bux-button--disabled");
+    });
+  });
+});
+</script>

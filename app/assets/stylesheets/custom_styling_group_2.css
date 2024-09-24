@@ -1,0 +1,140 @@
+.presentation-event-form {
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 20px;
+  }
+  
+  .form-group {
+    margin-bottom: 20px;
+  }
+  
+  .form-group label {
+    display: block;
+    font-weight: bold;
+  }
+  
+  .form-control {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    resize: none;
+  }
+  
+  .form-actions {
+    margin-top: 20px;
+  }
+  
+  .form-actions button {
+    padding: 10px 20px;
+    font-size: 16px;
+  }
+
+
+.bux-tiles-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); /* Adjust the minimum and maximum width as needed */
+  gap: 20px; /* Adjust the gap between tiles as needed */
+}
+
+.bux-tile {
+  display: block;
+  padding: 20px; /* Add padding to create clickable area */
+  border-radius: 8px;
+  text-decoration: none; /* Remove default underline */
+  user-select: none;
+  cursor: pointer; /* Change cursor to pointer */
+}
+
+.controls {
+  display: flex;
+  justify-content: space-between;
+  /* Align items with space between them */
+  align-items: right;
+  /* Vertically center items */
+  position: fixed;
+  /* Fixed position */
+  bottom: 0;
+  /* Stick to the bottom of the viewport */
+  width: 100%;
+  /* Take full width of the viewport */
+  padding: 10px;
+  background-color: white; /* Adding background color for better visibility */
+  z-index: 999; /* Ensuring controls are on top */
+}
+.button--bottom-right {
+  justify-content: flex-end; /* Align buttons to the right */
+}
+
+.bux-panel {
+  margin: 20px;
+  padding: 20px;
+}
+
+.presentation-event-details {
+  margin-bottom: 20px; /* Add space between details and buttons */
+}
+
+.buttons {
+  display: flex;
+  justify-content: flex-end; /* Align buttons to the right */
+}
+
+.bux-panel__footer {
+  margin-top: 20px; /* Add space between details and buttons */
+}
+.bux-button {
+  margin: 10px; /* Add space between buttons */
+}
+
+.comments-section {
+  margin-top: 20px;
+  padding: 20px;
+}
+
+.star {
+  font-size: 42px; /* Adjust the size of the stars */
+  color: #ccc; /* Default color */
+  cursor: pointer;
+}
+
+.star.highlight {
+  color: #ba0c2f; /* we are using OSU colors, so we will use it here */
+}
+.rating-stars{
+  user-select: none;
+  display: flex;
+  align-items: center;
+}
+.no-presentations-message {
+  text-align: center;
+  margin-top: 50px;
+  opacity: 0.5; /* Faded effect */
+}
+.section-container {
+  margin: 20px;
+  padding: 10px;
+}
+
+.add-user-container {
+  display: flex; /* Display children in a row */
+  justify-content: space-between; /* Distribute items along the main axis */
+  align-items: center; /* Align items vertically */
+  padding-top: 10px; /* Adjust top padding */
+  padding-bottom: 10px; /* Adjust bottom padding */
+}
+
+.add-user-container input[type="text"],
+.add-user-container input[type="submit"] {
+  margin-right: 10px; /* Adjust spacing between input fields */
+}
+.comment {
+  position: relative;
+}
+
+.delete-comment {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+}
+

@@ -1,0 +1,15 @@
+<div id="<%= dom_id(presentation_event) %>" class="presentation-event, bux-panel">
+  <h2 class="bux-panel__heading"><%= presentation_event.title %></h2>
+
+  <div class="presentation-event__details">
+    <p class="presentation-event__detail">
+      <strong>Date:</strong>
+      <%= presentation_event.date %>
+    </p>
+
+    <div class="presentation-event__description">
+      <p class="presentation-event__description-label"><strong>Description:</strong></p>
+      <p class="presentation-event__description-text"><%= presentation_event.description %></p>
+    </div>
+  </div>
+</div>
